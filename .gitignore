@@ -1,0 +1,10 @@
+/build*/
+/*.c
+/*.cpp
+.idea
+*.elf
+*.iso
+/iso_*/
+
+/subprojects/flanterm/
+/subprojects/freestanding-*/
