@@ -3,7 +3,7 @@
 set -e
 
 rm -rf build/
-meson build --cross-file targets/x86_64-clang.ini
+meson build --cross-file meta/targets/x86_64-llvm.ini
 ninja -C build
 
 make -C limine
@@ -24,4 +24,4 @@ xorriso -as mkisofs -b boot/limine/limine-bios-cd.bin \
 ./limine/limine bios-install rhyme-x86_64.iso
 rm -rf iso_root
 
-qemu-system-x86_64 -M q35 -m 2G -bios OVMF.fd -cdrom rhyme-x86_64.iso -boot d
+qemu-system-x86_64 -M q35 -m 2G -bios meta/ovmf/64_86.fd -cdrom rhyme-x86_64.iso -boot d
