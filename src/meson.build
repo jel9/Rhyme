@@ -2,7 +2,7 @@ cwd = meson.current_source_dir()
 subdir('arch')
 subdir('lib')
 
-subdir('con')
+subdir('term')
 
 src += [
     cwd/'kernel.cpp',

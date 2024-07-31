@@ -5,6 +5,6 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-void halt();
+void halt ();
 
-#endif //COMMON_H
+#endif // COMMON_H

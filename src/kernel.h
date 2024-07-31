@@ -5,29 +5,28 @@
 #ifndef KERNEL_H
 #define KERNEL_H
 
-#include <flanterm.h>
-#include <con/console.h>
 #include <backends/fb.h>
-#include <x86_64/common.h>
 #include <boot/limine.h>
+#include <flanterm.h>
+#include <term/console.h>
+#include <x86_64/common.h>
 
+namespace rhyme::core
+{
 
-namespace rhyme::core {
-
-class kernel {
+class kernel
+{
 public:
-    kernel(limine_framebuffer * fb) {
-        this->fb = fb;
-    }
+  kernel (limine_framebuffer *fb) { this->fb = fb; }
 
-    void init();
+  void init ();
 
 private:
-    limine_framebuffer * fb;
+  limine_framebuffer *fb;
 };
 
 } // kernel
 
 // rhyme
 
-#endif //KERNEL_H
+#endif // KERNEL_H
