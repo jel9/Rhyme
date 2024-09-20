@@ -23,8 +23,6 @@ endif
 
 subdir('src')
 
-deps += dependency('chdrs', fallback: ['chdrs', 'chdrs_dep'])
-deps += dependency('cxxhdrs', fallback: ['cxxhdrs', 'cxxhdrs_dep'])
 deps += dependency('flanterm', fallback: ['flanterm', 'flanterm_dep'])
 
 arch_path = join_paths(meson.current_source_dir(), 'src/arch', target_machine.cpu_family())

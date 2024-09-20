@@ -1,83 +1,68 @@
-//
-// Created by chloe on 7/25/24.
-//
-
 #include <backends/fb.h>
 #include <boot/limine.h>
-#include <cstddef>
-#include <cstdint>
 #include <flanterm.h>
 #include <kernel.h>
 #include <x86_64/common.h>
 
 using namespace rhyme;
 
-namespace
-{
+namespace {
 
-__attribute__ ((used,
-                section (".requests"))) volatile LIMINE_BASE_REVISION (2);
+__attribute__((used, section(".requests"))) volatile LIMINE_BASE_REVISION(2);
 
 }
 
-namespace
-{
+namespace {
 
-__attribute__ ((
-    used,
-    section (
-        ".requests"))) volatile limine_framebuffer_request framebuffer_request
-    = { .id = LIMINE_FRAMEBUFFER_REQUEST, .revision = 0, .response = nullptr };
+__attribute__((used, section(".requests"))) volatile limine_framebuffer_request
+  framebuffer_request = { .id = LIMINE_FRAMEBUFFER_REQUEST,
+                          .revision = 0,
+                          .response = nullptr };
 
 }
 
-namespace
-{
+namespace {
 
-__attribute__ ((
-    used,
-    section (".requests_start_marker"))) volatile LIMINE_REQUESTS_START_MARKER;
+__attribute__((
+  used,
+  section(".requests_start_marker"))) volatile LIMINE_REQUESTS_START_MARKER;
 
-__attribute__ ((
-    used,
-    section (".requests_end_marker"))) volatile LIMINE_REQUESTS_END_MARKER;
+__attribute__((
+  used,
+  section(".requests_end_marker"))) volatile LIMINE_REQUESTS_END_MARKER;
 
 }
 
 extern "C"
 {
-  int
-  __cxa_atexit (void (*) (void *), void *, void *)
+  int __cxa_atexit(void (*)(void*), void*, void*)
   {
     return 0;
   }
-  void
-  __cxa_pure_virtual ()
+  void __cxa_pure_virtual()
   {
-    halt ();
+    halt();
   }
-  void *__dso_handle;
+  void* __dso_handle;
 }
 
 extern "C" void
-_start ()
+_start()
 {
-  if (LIMINE_BASE_REVISION_SUPPORTED == false)
-    {
-      halt ();
-    }
+  if (LIMINE_BASE_REVISION_SUPPORTED == false) {
+    halt();
+  }
 
-  if (framebuffer_request.response == nullptr
-      || framebuffer_request.response->framebuffer_count < 1)
-    {
-      halt ();
-    }
-  limine_framebuffer *framebuffer
-      = framebuffer_request.response->framebuffers[0];
+  if (framebuffer_request.response == nullptr ||
+      framebuffer_request.response->framebuffer_count < 1) {
+    halt();
+  }
+  limine_framebuffer* framebuffer =
+    framebuffer_request.response->framebuffers[0];
 
-  core::kernel ke (framebuffer);
+  core::kernel ke(framebuffer);
 
-  ke.init ();
+  ke.init();
 
-  halt ();
+  halt();
 }
